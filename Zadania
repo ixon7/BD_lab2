@@ -1,0 +1,89 @@
+-- Zadania do samodzielnego wykonania: 
+/* 13.01.	Zdefiniować bezparametryczną funkcję f_WTM(), zwracającą sumaryczną wartość 
+			produktów w magazynie (tabela Produkty).	*/
+
+/* 13.02.	Zdefiniować funkcję f_Wiek_Pracownika(), zwracającą aktualny wiek pracownika. 
+			(tabela Pracownicy).	*/
+
+/* 13.03.	Zdefiniować funkcję f_WPwM(ID), zwracającą sumaryczną wartość 
+			produktu o podanym ID (tabela Produkty).	*/
+
+/* 13.04.	Zdefiniować funkcję f_WZ(ID), zwracającą sumaryczną wartość zamówienia o podanym ID 
+			(tabela PozycjeZamówienia).	*/
+
+/* 13.05.	Zdefiniować funkcję f_WZD(data), zwracającą sumaryczną wartość zamówień przyjętych 
+			w podanym dniu (tabele: Zamówienia i PozycjeZamówienia).	*/
+
+/* 13.06.	Zdefiniować funkcję f_Wiek_Pracownika(data), obliczającą wiek pracownika 
+			w podanym dniu (tabela Pracownicy).	*/
+
+/* 13.07.	Zdefiniować funkcję   (tabele: Zamówienia i PozycjeZamówienia).	*/
+
+/* 13.08.	Zdefiniować funkcję f_Przedstawiciele(przedstawiciel) zwracającą
+			zestawienie danych firm (nazwa, miasto, kraj, telefon), których przedstawicielami
+			są osoby o określonej pozycji, np. właściciel, przedstawiciel handlowy itp.
+			(tabela Klienci).
+
+/* 13.09.	Zdefiniować funkcję f_Nowe_Ceny(przyrost) zwracającą
+			zestawienie: IDproduktu, nazwa produktu, nazwa kategorii, cena jednostkowa, 
+						 zmodyfikowana cena jednostkowa oraz stan magazynu.
+			Funkcja podnosi ceny produktów o podany przyrost procentowy tylko tym produktom, 
+			których stan magazynu jest poniżej stanu minimum (tabela Produkty)		*/
+
+
+--DROP FUNCTION IF EXISTS dbo.f_TOTAL_NoParameters;
+--GO
+
+--CREATE FUNCTION f_TOTAL_NoParameters ()
+--RETURNS INT
+--AS
+--BEGIN
+--RETURN (Select AVG([CenaJednostkowa]*[Ilość]) 
+--FROM [PozycjeZamówienia])
+--END;
+--GO
+-----------------------------------------------------------------------------
+
+--DROP FUNCTION IF EXISTS dbo.f_TOTAL_NoParameters;
+--GO
+
+--CREATE FUNCTION f_TOTAL_WithParameters ()
+--RETURNS INT
+--AS
+--BEGIN
+--RETURN (Select AVG([CenaJednostkowa]*[Ilość]) 
+--FROM [PozycjeZamówienia]
+--END;
+--GO
+
+--DROP FUNCTION IF EXISTS dbo.f_TOTAL_WithParameters;
+--GO
+
+--CREATE FUNCTION f_TOTAL_WithParameters (@IDz as int)
+--RETURNS INT
+--AS
+--BEGIN
+--RETURN (Select AVG([CenaJednostkowa]*[Ilość]) 
+--FROM [PozycjeZamówienia]
+--where IDzamówienia = @IDz )
+--END;
+--GO
+--Select z.IDzamówienia, z.DataZamówienia, dbo.f_TOTAL_WithParameters(2) [Wartość zamówienia]
+--From Zamówienia z
+
+
+DROP FUNCTION IF EXISTS dbo.f_TOTAL_WithParameters;
+GO
+
+CREATE FUNCTION f_TOTAL_WithParameters (@IDz as int)
+RETURNS INT
+AS
+BEGIN
+RETURN (Select AVG([CenaJednostkowa]*[Ilość]) 
+FROM [PozycjeZamówienia]
+where IDzamówienia = @IDz )
+END;
+GO
+Select z.IDzamówienia, z.DataZamówienia, dbo.f_TOTAL_WithParameters(2) [Wartość zamówienia]
+From Zamówienia z
+
