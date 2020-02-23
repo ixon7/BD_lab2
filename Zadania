@@ -1,9 +1,33 @@
 -- Zadania do samodzielnego wykonania: 
 /* 13.01.	Zdefiniować bezparametryczną funkcję f_WTM(), zwracającą sumaryczną wartość 
 			produktów w magazynie (tabela Produkty).	*/
+DROP FUNCTION IF EXISTS dbo.f_WTM;
+GO
+CREATE FUNCTION f_WTM ()
+RETURNS float
+AS
+BEGIN
+RETURN (select SUM([CenaJednostkowa]*[StanMagazynu])
+from [mg].[Produkty] )
+END;
+GO
+select dbo.f_WTM()
 
 /* 13.02.	Zdefiniować funkcję f_Wiek_Pracownika(), zwracającą aktualny wiek pracownika. 
 			(tabela Pracownicy).	*/
+			CREATE FUNCTION f_Wiek_Pracownika ()
+RETURNS float
+AS
+BEGIN
+RETURN (Select DATEDIFF(year,[DataUrodzenia],GETDATE())
+from [dbo].[Pracownicy]  )
+END;
+GO
+
+select dbo.f_Wiek_Pracownika()
+
+Select DATEDIFF(year,[DataUrodzenia],GETDATE())
+from [dbo].[Pracownicy]
 
 /* 13.03.	Zdefiniować funkcję f_WPwM(ID), zwracającą sumaryczną wartość 
 			produktu o podanym ID (tabela Produkty).	*/
