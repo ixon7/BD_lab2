@@ -1,0 +1,32 @@
+Zadania:
+1.	Utworzyć tabelę Oferta, o schemacie tabeli Produkty.
+2.	Skopiować dane z tabeli Produkty do tabeli Oferta.
+3.	Utworzyć tabelę Oferta_Modyfikacje( kolumny jak w tabeli Oferta + kolumny poniżej
+								[Stempel_czasowy] [datetime] NOT NULL,
+	 							[User] [nvarchar(256)] NOT NULL,
+								[Host] [nvarchar(128)] NOT NULL)
+4.	Utworzyć wyzwalacz tr_Modyfikacja_ofert kopiujący dane sprzed modyfikacji do tabeli Oferta_Modyfikacje, podając równocześnie czas modyfikacji, użytkownika i host serwera.
+5.	Sprawdzić zawartość tabel sys.triggers i sys.trigger_events.  
+6.	Sprawdzić zawartość tabeli Oferta_Modyfikacje.
+7.	W tabeli Oferta, dla produktu o IDproduktu=1 zmodyfikować StanMagazynu do wartości 150 
+Sprawdzić zawartość tabeli Oferta_Modyfikacje.
+8.	Utworzyć tabelę Oferta_modyfikacja_ceny(
+						[IDproduktu] [int] NOT NULL,
+						[NazwaProduktu] [nvarchar](40) NOT NULL,
+						[CenaJednostkowa_Old] [money] NULL,
+						[CenaJednostkowa_New] [money] NULL,
+						[Stempel_czasowy] [datetime] NOT NULL,
+						[User] [nvarchar] (256) NOT NULL,
+						[Host] [nvarchar] (128) NOT NULL) 
+Sprawdzić zawartość tabeli Oferta_modyfikacja_ceny. (09_select_Oferta_modyfikacja_ceny.sql)
+9.	Utworzyć wyzwalacz tr_Modyfikacja_cen_ofert kopiujący, w przypadku modyfikacji cen produktów w tabeli Oferta odpowiednie dane do tabeli Oferta_Modyfikacje, podając równocześnie czas modyfikacji, użytkownika i host serwera.
+10.	Sprawdzić zawartość tabel sys.triggers i sys.trigger_events. 
+11.	W tabeli Oferta, dla produktu o (IDproduktu = 2) zmodyfikować StanMagazynu do wartości 2000. 
+Sprawdzić zawartość tabeli Oferta. 
+Sprawdzić zawartość tabeli Oferta_modyfikacja_ceny. (09_select_Oferta_modyfikacja_ceny.sql)
+12.	W tabeli Oferta, dla produktu o (IDproduktu = 3) zmodyfikować CenaJednostkowa do wartości 16.99.
+Sprawdzić zawartość tabeli Oferta.
+Sprawdzić zawartość tabeli Oferta_modyfikacja_ceny. (09_select_Oferta_modyfikacja_ceny.sql)
+13.	Opracować wyzwalacze sprawdzające poprawność nowych danych wprowadzanych do tabeli Oferta, dla kryteriów jak poniżej:
+a.	CenaJednostkowa > 0;
+b.	StanMagazynu > 0.
